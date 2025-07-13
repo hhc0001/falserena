@@ -19,51 +19,63 @@ using m64 = std::mt19937_64;
 
 #ifndef _SELF_INPLEMENTED_RNG
 #define _SELF_INPLEMENTED_RNG
-m32 _Base(time(0));
-ui32 _BSft(0, 63);
-ui32 _BTyp(0, 1);
-ui32 _BCnt(1, 6);
-
-u64 _F1(u64 x) {
-  for(int _ = _BCnt(_Base); _--; ) {
-    int _Tp = _BTyp(_Base);
-    if(_Tp) {
-      x ^= x << (_BSft(_Base));
-    }else {
-      x ^= x >> (_BSft(_Base));
-    }
+struct randNumberGenerator {
+  m32 _Base;
+  ui32 _BaseShift;
+  ui32 _BaseType;
+  ui32 _BaseCounter;
+  
+  randNumberGenerator() : _Base(std::time(0)),
+                          _BaseShift(0, 63),
+                          _BaseType(0, 1),
+                          _BaseCounter(1, 6) {
   }
-  return x;
-}
-u64 _F2(u64 x) {
-  for(int _ = _BCnt(_Base); _--; ) {
-    u64 y = 1;
-    for(int __ = _BCnt(_Base); __--; ) {
-      y = y * x;
+  
+  u64 _F1(u64 x) {
+    for(int _ = _BaseCounter(_Base); _--; ) {
+      int _Tp = _BaseType(_Base);
+      if(_Tp) {
+        x ^= x << (_BaseShift(_Base));
+      }else {
+        x ^= x >> (_BaseShift(_Base));
+      }
     }
-    x ^= y;
-  }
-  return x;
-}
-//Fibonacci function. Interesting.
-u64 _F(u64 x, u16 y) {
-  if(y == 0) {
     return x;
   }
-  if(y == 1) {
-    return _F1(x);
-  }
-  if(y == 2) {
-    return _F2(x);
-  }
-  for(int _ = _BCnt(_Base); _--; ) {
-    int _Tp = _BTyp(_Base);
-    if(_Tp) {
-      x ^= _F(x, y - 1);
-    }else {
-      x ^= _F(x, y - 2);
+  u64 _F2(u64 x) {
+    for(int _ = _BaseCounter(_Base); _--; ) {
+      u64 y = 1;
+      for(int __ = _BaseCounter(_Base); __--; ) {
+        y = y * x;
+      }
+      x ^= y;
     }
+    return x;
   }
-  return x;
-}
+//Fibonacci function. Interesting.
+  u64 _F(u64 x, u16 y) {
+    if(y == 0) {
+      return x;
+    }
+    if(y == 1) {
+      return _F1(x);
+    }
+    if(y == 2) {
+      return _F2(x);
+    }
+    for(int _ = _BaseCounter(_Base); _--; ) {
+      int _Tp = _BaseType(_Base);
+      if(_Tp) {
+        x ^= _F(x, y - 1);
+      }else {
+        x ^= _F(x, y - 2);
+      }
+    }
+    return x;
+  }
+};
 #endif
+
+int main() {
+  return 0;
+}
