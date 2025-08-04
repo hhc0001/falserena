@@ -1,6 +1,6 @@
 # falserena
 
-namerena 的 modding，单人开发，兴趣项目。
+namerena 的 modding，单人开发，兴趣项目。`README.md` 里面的文件功能是 modding guide。当然也可以选择忽视。
 
 文件功能：
 

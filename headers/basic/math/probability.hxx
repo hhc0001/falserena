@@ -1,6 +1,5 @@
 #include "random"
 #include "ctime"
-
 #ifndef _MACROS
 #define _MACROS
 using i16 = short;
@@ -16,7 +15,6 @@ using uu64 = std::uniform_int_distribution<u64>;
 using m32 = std::mt19937;
 using m64 = std::mt19937_64;
 #endif
-
 #ifndef _SELF_INPLEMENTED_RNG
 #define _SELF_INPLEMENTED_RNG
 struct randNumberGenerator {

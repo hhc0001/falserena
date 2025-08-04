@@ -1,4 +1,4 @@
-#include "iostream"
+#include "string"
 #include "definition.hxx"
 #ifndef _MACROS
 #define _MACROS
@@ -15,10 +15,17 @@ using uu64 = std::uniform_int_distribution<u64>;
 using m32 = std::mt19937;
 using m64 = std::mt19937_64;
 #endif
-#ifndef _PLAYER_DETAIL
-#define _PLAYER_DETAIL
-void player::die(player b) {
-  std::cout << "Fighter " << (*this).name << " in team " << (*this).team << " was killed by ";
-  std::cout << "fighter " << b.name << " in team " << b.team << '\n';
-}
+#ifndef _EFFECTS
+#define _EFFECTS
+struct buff : effect {
+  double damageBoost;
+  i64 immune;
+};
+
+struct nerf : effect {
+  i64 damage, damagePerAction, stuck;
+};
+
+struct onFire : nerf {
+};
 #endif
