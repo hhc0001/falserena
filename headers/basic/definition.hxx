@@ -1,6 +1,6 @@
 #include "string"
 #include "set"
-#include "math/probability.hxx"
+#include "random"
 #ifndef _MACROS
 #define _MACROS
 using i16 = short;
@@ -18,23 +18,28 @@ using m64 = std::mt19937_64;
 #endif
 #ifndef _BASIC_DEFINITION
 #define _BASIC_DEFINITION
+struct player;
+
 struct effect {
+public:
   std::string type;
   i64 level, duration;
   double damageTakenMultiplier;
   
-  virtual void operator()() = 0;
+  virtual void operator()(player &b) = 0;
 };
 
 struct effectCmp {
+public:
   bool operator ()(effect *a, effect *b) {
     return a -> duration < b -> duration;
   }
 };
 
 struct player {
-  i64 health, healthCap, mana, manaCap, team;
-  std::string name;
+public:
+  i64 health, healthCap, mana, manaCap;
+  std::string name, team;
   std::set<effect *, effectCmp> effects;
   
   void die(player b);

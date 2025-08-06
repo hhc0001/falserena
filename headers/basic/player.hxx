@@ -19,6 +19,6 @@ using m64 = std::mt19937_64;
 #define _PLAYER_DETAIL
 void player::die(player b) {
   std::cout << "Fighter " << (*this).name << " in team " << (*this).team << " was killed by ";
-  std::cout << "fighter " << b.name << " in team " << b.team << '\n';
+  std::cout << "fighter " << b.name << " in team " << b.team << "!\n";
 }
 #endif
