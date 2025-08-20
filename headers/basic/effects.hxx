@@ -148,7 +148,7 @@ public:
   }
   shock operator +(shock b) {
     shock temp;
-    temp.type = "freezeFire";
+    temp.type = "shock";
     temp.level = std::max(level, b.level) + 1;
     temp.duration = ((duration + level - 1) / level + (b.duration + b.level - 1) / b.level) * temp.level;
     temp.damageTakenMultiplier = 1 + temp.level / 4.0;
@@ -158,9 +158,19 @@ public:
   }
   shock operator +(frozen b) {
     shock temp;
-    temp.type = "freezeFire";
+    temp.type = "shock";
     temp.level = level + b.level + 1;
     temp.duration = ((duration + level - 1) / level + (b.duration + b.level - 1) / b.level) * temp.level;
+    temp.damageTakenMultiplier = 1 + temp.level / 4.0;
+    temp.damage = 0;
+    temp.stuck = 1;
+    return temp;
+  }
+  shock operator +(freezeFire b) {
+    shock temp;
+    temp.type = "shock";
+    temp.level = level + b.level + 1;
+    temp.duration = duration + b.duration * b.level;
     temp.damageTakenMultiplier = 1 + temp.level / 4.0;
     temp.damage = 0;
     temp.stuck = 1;
