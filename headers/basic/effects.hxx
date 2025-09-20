@@ -141,6 +141,9 @@ freezeFire operator +(frozen a, freezeFire b) {
   return b + a;
 }
 
+struct stun : public nerf {
+};
+
 struct shock : public nerf {
 public:
   void operator ()(player &b) override final {
@@ -176,5 +179,8 @@ public:
     temp.stuck = 1;
     return temp;
   }
+};
+
+struct poison : public nerf {
 };
 #endif
